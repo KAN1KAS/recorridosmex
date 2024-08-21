@@ -1,0 +1,171 @@
+{% extends "inicio/predeterminado.html" %}
+
+{% block titulo %} REGISTRO {% endblock %}
+
+{% load static %}
+{% block contenido %}
+
+<style>
+
+    .register-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 30px;
+        background: linear-gradient(145deg, #ffffff, #f0f0f0);
+        border-radius: 12px;
+        border: 1px solid #ddd;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+    }
+    
+    .register-container h3 {
+        margin-bottom: 18px;
+        text-align: center;
+        font-size: 18px;
+        color: black;
+        font-family: 'chil', sans-serif;
+        letter-spacing: 1px; /* Espacio entre letras */
+    }
+
+    .register-container form div {
+        margin-bottom: 10px;
+    }
+
+    .register-container label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+        font-family: 'Century Gothic', sans-serif;
+        font-size: 12px;
+    }
+
+    .register-container input[type="text"],
+    .register-container input[type="password"],
+    .register-container input[type="email"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 12px;
+        font-family: 'Century Gothic', sans-serif;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra interna para campos de entrada */
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .register-container input[type="text"]:focus,
+    .register-container input[type="password"]:focus,
+    .register-container input[type="email"]:focus {
+        border-color: #55947A; /* Color verde claro en enfoque */
+        box-shadow: 0 0 5px rgba(85, 148, 122, 0.3); /* Sombra más prominente en enfoque */
+        outline: none; /* Elimina el borde por defecto del navegador */
+    }
+
+    .register-container input[type="submit"] {
+        width: 100%;
+        padding: 8px;
+        margin: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #55947A;
+        color: black;
+        font-size: 12px;
+        cursor: pointer;
+        font-family: 'Century Gothic', sans-serif;
+        font-weight: bold;
+    }
+
+    .register-container input[type="submit"]:hover {
+        background-color: #65B293; /* Color verde más oscuro para hover */
+        transform: translateY(-2px); /* Efecto de elevación */
+    }
+
+    .register-container p {
+        margin: 0;
+        color: #333;
+        font-size: 10px;
+        font-family: 'Century Gothic', sans-serif;
+    }
+
+    .register-container .message {
+        color: #d9534f; /* Rojo brillante para mensajes de error */
+        background-color: #f2dede; /* Fondo rojo claro */
+        border: 1px solid #d9534f;
+        border-radius: 6px;
+        padding: 15px;
+        text-align: center;
+        margin: 15px 0;
+        font-size: 10px;
+        font-family: 'Century Gothic', sans-serif;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Medios de consulta para pantallas más pequeñas */
+    @media (max-width: 768px) {
+        .register-container {
+            max-width: 90%;
+            margin: 20px auto;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .register-container {
+            max-width: 95%;
+            margin: 10px auto;
+        }
+    }
+</style>
+
+<div class="register-container">
+    <h3>REGISTRAR USUARIO</h3>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p class="message">{{ message.tags }} : {{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST" action="{% url 'registro' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-group button-container">
+            <input type="submit" value="REGISTRAR">
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% comment %} {% extends "inicio/predeterminado.html" %}
+
+{% block titulo %} REGISTRO {%endblock%}
+
+{%load static%}
+{% block contenido %}
+
+
+        <h3>REGISTRO DE USUARIO</h3>  
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" action="{% url 'registro' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+                    <input type="submit" value="Registrar">                  
+                </div>
+        </form>
+
+        {% if messages %}
+    {% for message in messages %}
+     <p>{{message.tags}} : {{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+{%endblock%} {% endcomment %}

@@ -1,0 +1,196 @@
+
+@font-face {
+    font-family: 's';
+    src: url("/static/inicio/fonts/S.otf") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'm';
+    src: url("/static/inicio/fonts/Ms.ttf") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'chil';
+    src: url("/static/inicio/fonts/Childos.otf") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    min-height: 100%;
+    margin: 0; /* Añadir margen cero para asegurar consistencia */
+}
+
+.nosotros-container {
+    max-width: 100%;
+    margin: 30px auto 0;
+    padding: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+
+.nosotros-content {
+    overflow: hidden;
+    text-align: justify;
+    color: black;
+    max-width: 350px;
+    margin-right: 40px;
+}
+
+.nosotros-content h2 {
+    font-family: 'chil';
+    text-align: center;
+    padding: 30px;
+    font-size: 20px;
+    
+}
+
+.nosotros-content p {
+    line-height: 1.6;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-family: 'Gill Sans MT';
+}
+
+.nosotros-image {
+    max-width: 400px;
+    height: 400px;
+    margin-right: 40px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.nosotros-image:hover {
+    transform: scale(1.1);
+}
+
+/* Estilos generales para la página */
+.nosotros {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.titulo2 {
+    margin-bottom: 10px;
+}
+
+/* Estilos para el título */
+.titulo2 h1 {
+    font-size: 25px;
+    color: black;
+    font-family: 'chil', 'Calibri', 'Trebuchet MS', sans-serif;
+}
+
+.titulo2 h2 {
+    font-size: 30px;
+    font-family: 'm', 'Century Gothic';
+    color: rgb(0, 0, 0);
+}
+
+/* Contenedor flex para los elementos en fila */
+.nosotros-row {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+/* Estilo para cada contenedor de columna */
+.nosotros-column {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: transform 0.3s ease;
+    margin: 10px;
+}
+
+.nosotros-column:hover {
+    transform: translateY(-5px);
+}
+
+.nosotros-column .imagen-container {
+    width: 120px;
+    height: 130px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nosotros-column img {
+    width: 50%;
+    height: auto;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.nosotros-column:hover img {
+    transform: scale(1.2);
+}
+
+.nosotros-column p {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-top: 10px;
+    font-family: 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+}
+
+/* Media Query para pantallas pequeñas */
+@media only screen and (max-width: 768px) {
+    .nosotros-container {
+        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+        align-items: center; /* Centra los elementos horizontalmente */
+        padding: 10px; /* Añade un padding para separar del borde */
+    }
+
+    .nosotros-content {
+        max-width: 80%; /* Ajusta el ancho máximo del contenido */
+        text-align: justify; /* Centra el texto */
+        margin-bottom: 20px; /* Espacio inferior */
+        margin-left: 30px;
+    }
+
+    .nosotros-image {
+        max-width: 80%; /* Ajusta el ancho máximo de la imagen */
+        height: auto; /* Permite que la altura se ajuste automáticamente */
+        margin-bottom: 20px; /* Espacio inferior */
+        margin-left: 30px;
+
+    }
+
+    .nosotros-row {
+        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+        align-items: center; /* Centra los elementos */
+        margin-left: 0; /* Ajuste del margen izquierdo */
+    }
+
+    .nosotros-column {
+        width: 90%; /* Ocupa el 90% del ancho disponible */
+        margin: 15px 0; /* Ajusta el margen vertical */
+    }
+
+    .nosotros-column .imagen-container {
+        width: 80px; /* Reducción adicional del tamaño del contenedor de imagen */
+        height: 70px; /* Ajuste de altura del contenedor */
+        margin-bottom: 10px; /* Ajuste de margen inferior */
+    }
+}
+

@@ -1,0 +1,189 @@
+@font-face {
+  font-family: 'd';
+  src: url("/static/inicio/fonts/badhorse.ttf") format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'litle';
+  src: url("/static/inicio/fonts/Little.otf") format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'chil';
+  src: url("/static/inicio/fonts/Childos.otf") format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  min-height: 100%;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+.navbar {
+  background-color: #ffffff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Asegura que la barra lateral esté sobre otros contenidos */
+}
+
+.user-menu img {
+  width: 60px;
+  border-radius: 50%;
+  margin-left: 10px; /* Añadido para aumentar el espacio a la izquierda */
+}
+.navbar-content {
+  margin-left: auto;
+  display: flex; /* Añadido para asegurar alineación correcta */
+  align-items: center; /* Añadido para alinear verticalmente */
+  margin-right: 10px; /* Añadido para aumentar el espacio a la izquierda */
+}
+
+.navigation {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  font-size: 13px;
+}
+
+.navigation li {
+  position: relative;
+}
+
+.navigation li a {
+  display: block;
+  color: #000000;
+  font-family: 'chil', 'Century Gothic';
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 3px 3dvh;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.navigation li.active {
+  background-color: #9DBDB0;
+  border-radius: 5px;
+  padding: 2px; 
+}
+
+.navigation .submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0; /* Asegura que el submenú se alinee al borde izquierdo del contenedor padre */
+  background-color: #ffffff;
+  list-style: none;
+  min-width: 100px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  padding: 5px; /* Elimina el relleno adicional */
+  margin: 0; /* Elimina el margen adicional */
+}
+
+.navigation .submenu a {
+  padding: 10px 20px;
+  color: #000000;
+}
+
+.navigation .submenu a:hover {
+  background-color: rgba(97, 157, 79, 0.2);
+}
+
+.navigation li:hover > .submenu {
+  display: block;
+}
+
+.navigation .submenu .submenu {
+  top: 0;
+  left: 100%; /* Alinea el submenú al borde derecho del menú padre */
+  min-width: 100px;
+  white-space: nowrap;
+}
+
+/* Media query para hacer el menú responsivo */
+@media screen and (max-width: 768px) {
+  .navigation {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .navigation.active  {
+    display: flex;
+    transform: translateX(0);
+  }
+
+  .navigation li {
+    text-align: center;
+    margin: 0;
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    color: #000;
+  }
+
+  .menu-toggle .fas {
+    font-size: 24px;
+  }
+
+  .user-menu img {
+    width: 55px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .page-content-principal .title {
+    font-size: 5em !important;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .menu-toggle {
+    display: none;
+  }
+}
+

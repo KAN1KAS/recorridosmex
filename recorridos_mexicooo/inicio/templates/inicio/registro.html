@@ -1,0 +1,29 @@
+{% extends "inicio/predeterminado.html" %}
+
+{% block titulo %} REGISTRO {%endblock%}
+
+{%load static%}
+{% block contenido %}
+
+
+        <h3>REGISTRO DE USUARIO</h3>  
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" action="{% url 'registro' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+                    <input type="submit" value="Registrar">                  
+                </div>
+        </form>
+
+        {% if messages %}
+    {% for message in messages %}
+     <p>{{message.tags}} : {{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+{%endblock%}

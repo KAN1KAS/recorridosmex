@@ -1,0 +1,149 @@
+{% extends "inicio/predeterminado.html" %}
+
+{% block titulo %} NOSOTROS {% endblock %}
+
+{% load static %}
+
+{% block contenido %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle de Reserva</title>
+    <style>
+        /* CSS para el modal */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h2 {
+            color: black;
+            text-align: center; /* Alineación del texto al centro */
+            padding-top: 15px;
+            margin: 0; /* Elimina el margen para evitar espacios no deseados */
+            font-family: 'chil', sans-serif; /* Aplica la fuente 'chil', o una fuente alternativa */
+            font-size: 18px; /* Tamaño de fuente */
+            text-transform: uppercase; /* Convierte el texto a mayúsculas */
+            text-decoration: none; /* Asegura que no haya subrayado en el texto */
+        }
+
+        .modal {
+            display: none; /* Ocultar el modal por defecto */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto; /* Centrar el modal */
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%; /* Ancho del modal */
+            max-width: 800px; /* Máximo ancho */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-family: 'Century Gothic', sans-serif; /* Tipografía similar a la tabla */
+            border: none; /* Elimina cualquier borde */
+        }
+        
+        .modal-header {
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center; /* Centra el contenido horizontalmente */
+            align-items: center;
+            border-bottom: 1px solid #ddd; /* Línea delgada en la parte inferior del header */
+        }
+        
+        .close {
+            font-size: 28px;
+            cursor: pointer;
+            color: #4a90e2; /* Color del icono de cerrar */
+            position: absolute;
+            right: 30px; /* Posiciona el botón de cerrar a la derecha */
+        }
+        
+        .modal-body {
+            padding: 20px;
+            font-size: 16px;
+        }
+        
+        .modal-body p {
+            margin: 10px 0;
+            font-size: 12px;
+        }
+        
+        .modal-footer {
+            padding: 10px 20px;
+            border-top: 1px solid #ddd;
+            text-align: right;
+        }
+        
+        .btn-close {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none; /* Eliminar subrayado en el enlace */
+        }
+        
+        .btn-close:hover {
+            background-color: #357abd; /* Color más oscuro al pasar el mouse */
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- El Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="{% url 'mis_reservas' %}">
+                    <span class="close">&times;</span>
+                </a>
+                <h2>Detalle de Reserva</h2>
+            </div>
+            <div class="modal-body">
+                <p><strong>Tour:</strong> {{ reserva.tour.nombre }}</p>
+                <p><strong>Lugares Reservados:</strong> {{ reserva.lugares_reservados }}</p>
+                <p><strong>Precio Pagado:</strong> {{ reserva.precio_pagado }}</p>
+                <p><strong>Fecha de Reserva:</strong> {{ reserva.fecha_reserva }}</p>
+                <p><strong>Fecha del recorrido:</strong> {{ reserva.tour.fecha }}</p>
+                <p><strong>Hora del recorrido:</strong> {{ reserva.tour.hora }}</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = document.getElementById("myModal");
+            var closeModalBtn = document.getElementsByClassName("close")[0];
+    
+            // Mostrar el modal cuando la página se carga
+            if (localStorage.getItem('modalClosed') !== 'true') {
+                modal.style.display = "block";
+            }
+    
+            // Cerrar el modal cuando se hace clic en la X
+            closeModalBtn.onclick = function() {
+                modal.style.display = "none";
+                localStorage.setItem('modalClosed', 'true');
+            }
+    
+            // Opcionalmente, cerrar el modal si se hace clic fuera del contenido del modal
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

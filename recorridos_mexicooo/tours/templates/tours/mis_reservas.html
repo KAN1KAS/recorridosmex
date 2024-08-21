@@ -1,0 +1,159 @@
+{% extends "inicio/predeterminado.html" %}
+
+{% block contenido %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Reservas</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .titu {
+            margin-top: 50px;
+            text-align: center; /* Alineación centrada para el título */
+            font-size: 2.5rem; /* Ajuste del tamaño del título */
+        }
+
+        .reservas-lista {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual ancho */
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto 50px; /* Centra horizontalmente y agrega margen inferior */
+            list-style: none; /* Elimina los puntos de lista */
+            padding: 0; /* Elimina el padding por defecto de las listas */
+            gap: 20px; /* Espacio entre las reservas */
+        }
+
+        .reserva-item {
+            background-color: #fff;
+            overflow: hidden;
+            padding: 30px;
+            display: flex;
+            align-items: center; /* Centra el contenido verticalmente */
+            gap: 20px; /* Espacio entre imagen y detalles */
+            box-sizing: border-box; /* Incluye padding y border en el cálculo del ancho */
+        }
+
+        /* Alterna la alineación de las reservas en las dos columnas */
+        .reserva-item:nth-child(odd) {
+            justify-content: flex-start; /* Alinea a la izquierda para elementos impares */
+        }
+
+        .reserva-item:nth-child(even) {
+            justify-content: flex-end; /* Alinea a la derecha para elementos pares */
+        }
+
+        .reserva-imagen img {
+            max-width: 140px;
+            height: 140px;
+            object-fit: cover; /* Mantiene la proporción de la imagen */
+            border-radius: 150px; /* Radio del borde */
+        }
+
+        .reserva-detalles {
+            flex: 1; /* Ocupa el espacio restante */
+        }
+
+        .reserva-detalles h2 {
+            font-size: 14px; /* Tamaño del nombre del tour */
+            font-family: 'Chil', sans-serif; /* Usa la fuente Chil */
+            text-transform: uppercase;
+        }
+
+        .reserva-detalles p {
+            margin: 5px 0;
+            font-size: 10px; /* Tamaño del texto de los detalles */
+            font-family: 'Century Gothic', sans-serif; /* Usa Century Gothic */
+        }
+
+        /* Estilos para el mensaje de no reservas */
+        .no-reservas {
+            text-align: center;
+            font-size: 2rem; /* Tamaño grande del texto */
+            color: #d3d3d3; /* Color gris claro */
+            font-family: 'Chil', sans-serif; /* Usa la fuente Chil */
+            margin: 180px auto; /* Centra el elemento y añade margen vertical */
+            padding: 0 10%; /* Añade algo de espacio horizontal en dispositivos móviles */
+            text-transform: uppercase;
+        }
+
+        .no-reservas::before {
+            content: ":("; /* Carita triste antes del mensaje */
+            font-size: 3rem; /* Tamaño de la carita triste */
+            display: block;
+            margin-bottom: 10px; /* Espacio entre la carita triste y el texto */
+        }
+
+        /* Media queries para mejorar la apariencia en dispositivos móviles */
+        @media only screen and (max-width: 768px) {
+            .reservas-lista {
+                grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+            }
+
+            .reserva-item {
+                flex-direction: column; /* Disposición vertical en pantallas pequeñas */
+                align-items: center; /* Centra los elementos en pantallas pequeñas */
+            }
+
+            .reserva-imagen img {
+                max-width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* Media queries para mejorar la apariencia en pantallas más grandes */
+        @media only screen and (min-width: 769px) {
+            .reserva-item {
+                flex-direction: row; /* Disposición en fila en pantallas grandes */
+                align-items: center; /* Centra el contenido verticalmente */
+            }
+
+            .reserva-imagen {
+                flex-shrink: 0; /* Evita que la imagen se reduzca en tamaño */
+            }
+
+            .reserva-detalles {
+                margin-left: 20px; /* Añade margen izquierdo para separación en pantallas grandes */
+            }
+        }
+    </style>
+</head>
+<body>
+{% if reservas %}
+    <ul class="reservas-lista">
+        {% for reserva in reservas %}
+        <li class="reserva-item">
+            <div class="reserva-imagen">
+                <img src="{{ reserva.tour.imagen.url }}" alt="Imagen del Tour">
+            </div>
+            <div class="reserva-detalles">
+                <h2>{{ reserva.tour.nombre }}</h2>
+                <p><strong>Estado:</strong> {{ reserva.tour.estado }}</p>
+                <p><strong>Fecha del tour:</strong> {{ reserva.tour.fecha }}</p>
+                <p><strong>Hora de inicio del recorrido:</strong> {{ reserva.tour.hora }}</p>
+                <p><strong>Fecha de Reserva:</strong> {{ reserva.fecha_reserva|date:"d/m/Y" }}</p>
+                <p><strong>Lugares Reservados:</strong> {{ reserva.lugares_reservados }}</p>
+                <p><strong>Precio Pagado:</strong> ${{ reserva.precio_pagado }}</p>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="no-reservas">No has realizado ninguna reserva aún.</p>
+{% endif %}
+
+</body>
+</html>
+
+{% endblock contenido %}

@@ -1,0 +1,260 @@
+/* Estilos base */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+.container_tour {
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.titulo h1 {
+    text-align: center;
+    font-family: 'chil';
+    text-transform: uppercase;
+    padding-top: 10px;
+    font-size: 20px !important;
+}
+
+.titulo h2 {
+    text-align: center;
+    font-family: 'chil';
+    text-transform: uppercase;
+    font-size: 17px !important;
+}
+
+.image-gallery {
+    display: flex;
+    justify-content: center; /* Centra las imágenes en el contenedor */
+    align-items: center; /* Alinea verticalmente las imágenes */
+    flex-wrap: nowrap; /* No permite el ajuste a la siguiente línea */
+    margin: 0; /* Elimina el margen del contenedor de imágenes */
+    padding-top: 10px; /* Elimina el padding del contenedor de imágenes */
+    overflow-x: auto; /* Permite el desplazamiento horizontal si es necesario */
+}
+
+.image-gallery img {
+    width: 100px; /* Ajusta el tamaño de las imágenes según sea necesario */
+    height: 100px; /* Mantiene la proporción de altura si es necesario */
+    margin: 0; /* Elimina el margen entre las imágenes */
+    border: none; /* Elimina cualquier borde de las imágenes */
+}
+
+/* Detalles y Mapa en la misma fila */
+.details-map-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que el contenido se ajuste en dispositivos pequeños */
+    gap: 20px; /* Espacio entre detalles y mapa */
+}
+
+.details {
+    flex: 2; /* Asigna un mayor espacio a detalles */
+    width: 100%; /* Asegura que los detalles no excedan el contenedor */
+    margin-bottom: 20px;
+    padding: 20px;
+    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+}
+
+.details p {
+    margin: 5px 0;
+    color: #000000;
+    font-family: 'century gothic';
+    text-align: justify;
+    font-size: 11px;
+}
+
+.reserve-button {
+    background-color: #3CB371;
+    color: #fff;
+    border: none;
+    padding: 8px 16px; /* Reducido el padding */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px; /* Reducido el tamaño de la fuente */
+    font-weight: bold; /* Texto en negrita */
+    display: block; /* Hace que el botón ocupe el ancho disponible */
+    margin: 20px auto 10px; /* Mayor margen superior y menor margen inferior para alejarlo de los detalles */
+    text-align: center; /* Asegura que el texto esté centrado dentro del botón */
+    font-family: 'century gothic'; /* Fuente especificada */
+}
+
+.reserve-button:hover {
+    background-color: #2E8B57;
+    color: #000000;
+}
+
+.map-section {
+    flex: 1;
+    text-align: center; /* Centra el mapa */
+    padding-top: 20px; /* Ajusta el padding superior del mapa para eliminar espacio extra */
+    padding-bottom: 30px; /* Agrega espacio abajo del mapa */
+}
+
+/* Ajustes para el mapa */
+.map-section iframe {
+    width: 100%; /* Ajuste completo del mapa */
+    height: 350px; /* Altura fija del mapa */
+    border: 0; /* Elimina el borde del iframe */
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.pay-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.pay-button:hover {
+    background-color: #444;
+}
+
+form {
+    text-align: left;
+    margin-top: 20px;
+}
+
+form label, form input {
+    display: block;
+    margin: 10px 0;
+}
+
+form input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Media queries para responsividad */
+@media only screen and (max-width: 1200px) {
+    .map-section iframe {
+        height: 300px; /* Altura fija del mapa en dispositivos grandes */
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .container_tour {
+        padding: 10px; /* Reduce el padding en dispositivos pequeños */
+    }
+
+    .titulo h1 {
+        font-size: 24px; /* Reduce el tamaño de los títulos */
+        padding-top: 20px;
+    }
+
+    .titulo h2 {
+        font-size: 20px; /* Ajusta el tamaño del subtítulo */
+    }
+
+    .image-gallery {
+        flex-wrap: nowrap; /* Asegura que las imágenes estén en una sola fila */
+        overflow-x: auto; /* Permite desplazamiento horizontal */
+    }
+
+    /* Ocultar algunas imágenes y mostrar las necesarias en pantallas pequeñas */
+    .image-gallery img {
+        display: none; /* Oculta todas las imágenes por defecto */
+    }
+
+    /* Mostrar imágenes necesarias en función del espacio */
+    .image-gallery img:nth-child(-n+5) {
+        display: block; /* Muestra las primeras 5 imágenes, o menos si hay menos imágenes disponibles */
+    }
+
+    .details {
+        font-size: 14px; /* Reduce el tamaño del texto en los detalles */
+    }
+
+    .reserve-button {
+        padding: 8px 16px; /* Ajusta el padding del botón */
+        font-size: 14px; /* Reduce el tamaño del texto del botón */
+        margin: 40px auto 0px; /* Mayor margen superior para alejarlo de los detalles y menor margen inferior */
+    }
+
+    .map-section iframe {
+        height: 300px; /* Ajusta la altura del mapa para dispositivos móviles */
+    }
+
+    .map-section {
+        padding-top: 0; /* Menos espacio arriba del mapa */
+        padding-bottom: 30px; /* Más espacio abajo del mapa */
+    }
+
+    .details-map-container {
+        flex-direction: column; /* Ajusta la disposición en dispositivos móviles */
+    }
+}
+
+/* Estilos para el segundo modal */
+#paymentModal {
+    display: none; /* Oculto por defecto */
+}
+
+#paymentForm input {
+    margin: 10px 0;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#paymentForm button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+#paymentForm button:hover {
+    background-color: #444;
+}

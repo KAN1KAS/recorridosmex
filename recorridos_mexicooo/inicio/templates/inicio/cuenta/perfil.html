@@ -1,0 +1,242 @@
+{% extends "inicio/predeterminado.html" %}
+
+{% block titulo %} Mi Cuenta {% endblock %}
+
+{% load static %}
+
+{% block contenido %}
+<style>
+    /* Estilos específicos para la sección de contenido */
+    .page-content-principal {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 16px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .page-content-principal .image-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .page-content-principal .image-container img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .page-content-principal .usuario {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .page-content-principal .text-info {
+        color: black !important;
+        font-family: 'm';
+    }
+
+    .page-content-principal .form-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .page-content-principal .form-grid-left,
+    .page-content-principal .form-grid-right {
+        display: grid;
+        grid-template-rows: repeat(3, auto);
+    }
+
+    .page-content-principal label {
+        display: block;
+        font-size: 12px;
+        font-family: 'century gothic';
+        color: #555;
+        margin: 0 0 2px 0;
+    }
+
+    .page-content-principal input[type="text"] {
+        width: 100%;
+        padding: 6px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 13px;
+        color: #333;
+        background-color: #fff;
+        font-family: 'Calibri';
+    }
+
+    .page-content-principal input[type="text"]:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    .page-content-principal .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .page-content-principal .btn {
+        border: none;
+        padding: 8px 14px;
+        color: #fff;
+        font-size: 12px;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: 'century gothic';
+    }
+
+    .page-content-principal .btn-edit {
+        background-color: #4caf50;
+    }
+
+    .page-content-principal .btn-edit:hover {
+        background-color: #388e3c;
+    }
+
+    .page-content-principal .btn-logout {
+        background-color: #2e7d32;
+    }
+
+    .page-content-principal .btn-logout:hover {
+        background-color: #1b5e20;
+    }
+
+    .page-content-principal .alert {
+        padding: 6px;
+        margin: 0 0 10px 0;
+        border-radius: 4px;
+        font-size: 12px;
+        background-color: #d4edda;
+        color: #155724;
+        text-align: center;
+        opacity: 1;
+        transition: opacity 0.5s ease-out;
+        font-family: 'century gothic';
+    }
+
+    .page-content-principal .alert.hidden {
+        opacity: 0;
+    }
+
+    @media (max-width: 768px) {
+        .page-content-principal {
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 350px;
+        }
+
+        .page-content-principal .form-container {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        .page-content-principal .form-grid-left,
+        .page-content-principal .form-grid-right {
+            grid-template-rows: auto;
+        }
+
+        .page-content-principal .btn-container {
+            align-items: center;
+        }
+
+        .page-content-principal .btn {
+            width: auto;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+    }
+</style>
+
+<div class="page-content-principal">
+    <div class="image-container">
+        <img src="{% static 'inicio/images/prueba.jpg' %}" alt="Imagen de perfil">
+        <div class="usuario">
+            <h3 class="text-info">{{ usuario.user }}</h3>
+        </div>
+    </div>
+
+    {% if messages %}
+    <div id="alert-message" class="alert">
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'cuenta'%}">
+        {% csrf_token %}
+        <div class="form-container">
+            <div class="form-grid-left">
+                <div>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" value="{{ usuario.nombre|default:'' }}" placeholder="Nombre" required>
+                </div>
+                <div>
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" name="apellidos" id="apellidos" value="{{ usuario.apellidos|default:''  }}" placeholder="Apellidos" required>
+                </div>
+                <div>
+                    <label for="correo">Correo</label>
+                    <input type="text" name="correo" id="correo" value="{{ usuario.correo|default:''  }}" placeholder="Correo electrónico" required>
+                </div>
+            </div>
+
+            <div class="form-grid-right">
+                <div>
+                    <label for="telefono">Teléfono</label>
+                <input type="text" name="telefono" id="telefono" value="{{ usuario.telefono|default:''  }}" placeholder="Teléfono" required>
+                </div>
+                <div>
+                    <label for="ciudad">Ciudad</label>
+                    <input type="text" name="ciudad" id="ciudad" value="{{ usuario.ciudad|default:''  }}" placeholder="Ciudad" required>
+                </div>
+                <div>
+                    <label for="estado">Estado</label>
+                    <input type="text" name="estado" id="estado" value="{{ usuario.estado|default:'' }}" placeholder="Estado" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="btn btn-edit" type="submit">
+                <i class="fas fa-save"></i> EDITAR
+            </button>
+        </div>
+    </form>
+
+    <form method="POST" action="{% url 'cerrar_sesion'%}">
+        {% csrf_token %}
+        <div class="btn-container">
+            <button class="btn btn-logout" type="submit">
+                <i class="fas fa-sign-out-alt"></i> CERRAR SESIÓN
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var alertMessage = document.getElementById('alert-message');
+        if (alertMessage) {
+            setTimeout(function() {
+                alertMessage.classList.add('hidden');
+            }, 2000);
+        }
+    });
+</script>
+{% endblock %}
