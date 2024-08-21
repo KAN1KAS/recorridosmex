@@ -1,0 +1,35 @@
+{% extends "inicio/predeterminado.html" %}
+
+{% block titulo %} INICIAR SESIÓN {%endblock%}
+
+{%load static%}
+{% block contenido %}
+<div class="page-content-principal">
+    <input type="checkbox" id="btn-modal">
+        <div class="container-modal">
+            <div class="contenido-modal">
+                <div class="btn-cerrar">
+                    <label for="btn-modal">X</label>
+                </div>
+                <h3>¡BIENVENIDO!</h3>          
+                <form action="#" method="">
+                    <div>
+                        <label for="user"></label><input id="user" type="text" name="user" placeholder="CORREO">
+                    </div>
+                    <div>
+                        <label for="contraseña"></label><input id="contraseña" type="password" name="contraseña" placeholder="CONTRASAÑA">
+                    </div>
+                    <div>
+                        <input class="btn btn-azul" type="submit" value="ENVIAR">
+                    </div>
+                </form>
+                <div>
+                    <a class="{% url 'tours' %}"><p>¿AÚN NO TIENES CUENTA?</p></a>
+                </div>
+            </div>
+        </div>
+        
+  
+</div>
+{%endblock%}
+

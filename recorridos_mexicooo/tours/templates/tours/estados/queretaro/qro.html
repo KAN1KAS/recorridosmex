@@ -1,0 +1,22 @@
+{% extends "inicio/predeterminado.html" %}
+
+{% block titulo %} TOURS {%endblock%}
+
+{%load static%}
+
+{% block contenido %}
+<!-- Contenido Principal-->
+<h1 class="titu">TOURS QUERÉTARO</h1>
+<div class="tours-container">
+    {%for tour in tours%}
+    <div class="tour">
+        <a href="{% url 'detalle_tour' tour.id %}"><img src="{{tour.imagen.url}}" alt="{{tour.nombre}}" class="img-media"></a>
+        <h2>{{tour.nombre}}</h2>
+    </div>
+    {% if forloop.counter|divisibleby:5 and not forloop.last %}
+    </div><div class="tours-container">  <!-- Cerrar y abrir un nuevo contenedor cada 5 tours -->
+    {% endif %}
+    {%endfor%}
+</div>
+<!-- /Contenido Principal-->
+{%endblock%}

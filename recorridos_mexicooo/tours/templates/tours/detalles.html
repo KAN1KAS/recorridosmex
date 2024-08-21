@@ -1,0 +1,743 @@
+{% extends "inicio/predeterminado.html" %} 
+
+{% block titulo %} DETALLE DEL TOURS{%endblock%} 
+
+{%load static%} 
+
+{% block contenido %}
+
+
+<style>
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+  }
+  th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      font-family: 'century gothic';
+      font-size: 11px;
+  }
+  th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+  }
+  tr:nth-child(even) {
+      background-color: #f9f9f9;
+  }
+  tr:hover {
+      background-color: #f1f1f1;
+  }
+
+  body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h2 {
+            color: black;
+            text-align: center; /* Centra el título en la cabecera del modal */
+            padding-top: 10px; /* Ajusta el espaciado superior */
+            margin-bottom: 10px; /* Ajusta el margen inferior */
+            font-family: 'chil', sans-serif; /* Aplica la fuente 'chil', o una fuente alternativa */
+            font-size: 14px; /* Tamaño de fuente reducido */
+            text-transform: uppercase; /* Convierte el texto a mayúsculas */
+            text-decoration: none; /* Asegura que no haya subrayado en el texto */
+        }
+
+        .modal {
+            display: none; /* Ocultar el modal por defecto */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto; /* Centrar el modal */
+            padding: 10px; /* Ajusta el relleno del modal */
+            border-radius: 8px;
+            width: 40%; /* Ancho del modal reducido */
+            max-width: 300px; /* Máximo ancho reducido */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-family: 'Century Gothic', sans-serif; /* Tipografía similar a la tabla */
+            border: none; /* Elimina cualquier borde */
+        }
+        
+        .modal-header {
+            padding: 5px 10px; /* Ajusta el espaciado interno del encabezado */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .close {
+            font-size: 24px; /* Tamaño del icono de cerrar reducido */
+            cursor: pointer;
+            color: #4a90e2; /* Color del icono de cerrar */
+        }
+        
+        .modal-body {
+            padding: 10px; /* Ajusta el relleno del cuerpo del modal */
+            font-size: 12px; /* Tamaño de fuente ajustado */
+            text-align: left; /* Alinea el texto a la izquierda */
+        }
+        
+        .modal-body p {
+            margin: 5px 0; /* Ajusta el margen entre los párrafos */
+        }
+        
+        .modal-footer {
+            padding: 5px 10px; /* Ajusta el espaciado interno del pie del modal */
+            border-top: 1px solid #ddd;
+            text-align: right;
+        }
+        
+        .btn-close {
+            padding: 5px 10px; /* Ajusta el relleno del botón */
+            font-size: 12px; /* Tamaño de fuente reducido */
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none; /* Eliminar subrayado en el enlace */
+        }
+        
+        .btn-close:hover {
+            background-color: #357abd; /* Color más oscuro al pasar el mouse */
+        }
+        
+        @media (max-width: 768px) {
+            .details-map-container {
+                flex-direction: column;
+            }
+        
+        
+            .map {
+                height: 200px;
+            }
+        
+            .modal-content {
+                width: 90%;
+                max-width: 400px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 12px;
+            }
+        
+            .details p {
+                font-size: 10px;
+            }
+        
+            .modal-content {
+                width: 95%;
+                max-width: 300px;
+            }
+        
+            .image-gallery img {
+                max-width: 80px;
+            }
+        
+            .map {
+                height: 150px;
+            }
+        }
+</style>
+
+{% comment %} <div class="container_tour">
+  <div class="titulo">
+    <h1>{{ tours.nombre }}</h1>
+    <h2>{{ tours.ciudad }}, {{ tours.estado }}</h2>
+    <div class="image-gallery">
+      <img src="{{tours.imagen.url}}" /> 
+      <img src="{{tours.imagen.url}}" /> 
+      <img src="{{tours.imagen.url}}" />
+      <img src="{{tours.imagen.url}}"/> 
+      <img src="{{tours.imagen.url}}" /> 
+      <img src="{{tours.imagen.url}}" />
+      <img src="{{tours.imagen.url}}" />
+      <img src="{{tours.imagen.url}}"/> 
+      <img src="{{tours.imagen.url}}" /> 
+      <img src="{{tours.imagen.url}}" />
+      <img src="{{tours.imagen.url}}" />
+      <img src="{{tours.imagen.url}}"/> 
+    </div>
+    
+    <!-- Contenedor flex para detalles y mapa -->
+    <div class="details-map-container">
+      <div class="details">
+        <p style="font-weight: bold;">Fecha:</p> <p>{{ tours.fecha }}</p>
+        <p style="font-weight: bold;">Hora: </p> <p> {{ tours.hora }}</p>
+        <p style="font-weight: bold;">Kilómetros del recorrido: </p>  <p>{{ tours.km }}</p>
+        <p style="font-weight: bold;">Punto de inicio: </p> <p> {{ tours.punto_inicio }}</p>
+        <p style="font-weight: bold;">Descripción: </p> <p> {{ tours.descripcion }}</p>
+        {% if request.user.is_authenticated %}
+        <button  class="reserve-button" id="openModalBtn">HACER RESERVA</button>
+        {% else %}
+        <h3 class="text-dark" style="text-align: center; font-family: 'chil'; padding-top: 10px; font-size: 12px;  color:red !important;">
+          PARA PODER HACER UNA RESERVACIÓN, PORFAVOR INICIE SESIÓN.
+        </h3>
+        <form action="{% url 'login' %}">
+          <button class="reserve-button">INICIAR SESIÓN</button>
+        </form>
+        {% endif %}
+      </div>
+      
+      <div class="map-section">
+        <iframe
+          src="{{tours.mapa}}"
+          class="map"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+
+    <div>
+      <h3 style="font-family: 'chil'; font-size: 10px; margin: 0; padding: 0;">
+        PERSONAS QUE HAN HECHO RESERVA:
+    </h3>
+      {% if perfiles %}
+          <table>
+              <thead>
+                  <tr>
+                      <th>Nombre</th>
+                      <th>Ciudad</th>
+                      <th>Estado</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for perfil in perfiles %}
+                      <tr>
+                          <td>{{ perfil.nombre }} {{ perfil.apellidos }}</td>
+                          <td>{{ perfil.ciudad }}</td>
+                          <td>{{ perfil.estado }}</td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      {% else %}
+          <p>No hay reservas para este tour todavía.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Modal de Reserva (Información del Tour) -->
+<div id="reservationModal" class="modal">
+  <div class="modal-content reservation-modal-content">
+    <span class="close" data-modal="reservationModal">&times;</span>
+    <div class="modal-titulo">
+      <h1 class="taco">{{ tours.nombre }}</h1>
+      <h2>{{ tours.ciudad }}, {{ tours.estado }}</h2>
+    </div>
+    <img src="{{tours.imagen.url}}" style="height: 100px; width: 100%" />
+    <div class="details-modal">
+      <p>Fecha:</p><p> {{ tours.fecha }}</p>
+      <p>Hora:</p><p> {{ tours.hora }}</p>
+      <p>Kilómetros del recorrido:</p><p> {{ tours.km }}</p>
+      <p>Punto de inicio:</p><p>{{ tours.punto_inicio }}</p>
+      <p>Punto final:</p><p> {{ tours.punto_final }}</p>
+      <p>Costo por persona:</p><p>{{ tours.costo }}</p>
+      <p>Lugares disponibles:</p><p>{{ tours.lugares_disponibles }}</p>
+    </div>
+    {% if request.user.is_authenticated %}
+    <button type="button" id="continueToPayment" class="pay-button">
+      CONTINUAR AL PAGO
+    </button>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Modal de Pago (Datos de la Tarjeta) -->
+<div id="paymentModal" class="modal">
+  <div class="modal-content payment-modal-content">
+    <span class="close" data-modal="paymentModal">&times;</span>
+    <h1>Detalles de Pago</h1>
+    <form method="POST" action="{% url 'detalle_tour' tours.id %}">
+      {% csrf_token %}
+
+      <label for="card_holder">Nombre del Titular:</label>
+      <input
+        type="text"
+        id="card_holder"
+        name="card_holder"
+        required
+        maxlength="50"
+        pattern="[A-Za-z\s]+"
+        title="El nombre del titular solo puede contener letras y espacios."
+        placeholder="Nombre del titular"
+      />
+
+      <label for="card_number">Número de tarjeta:</label>
+      <input
+        type="text"
+        id="card_number"
+        name="card_number"
+        required
+        maxlength="16"
+        pattern="\d{16}"
+        title="El número de tarjeta debe contener exactamente 16 dígitos."
+        placeholder="Número de tarjeta"
+      />
+
+      <label for="card_expiry">Fecha de expiración:</label>
+      <input
+        type="text"
+        id="card_expiry"
+        name="card_expiry"
+        required
+        maxlength="7"
+        pattern="\d{2}/\d{2}"
+        title="La fecha de expiración debe estar en formato MM/AA."
+        placeholder="MM/AA"
+      />
+
+      <label for="card_cvc">CVC:</label>
+      <input
+        type="text"
+        id="card_cvc"
+        name="card_cvc"
+        required
+        maxlength="3"
+        pattern="\d{3}"
+        title="El CVC debe contener exactamente 3 dígitos."
+        placeholder="CVC"
+      />
+      <label for="num_lugares">Lugares a reservar:</label>
+      <input
+        type="number"
+        id="num_lugares"
+        name="lugares_reservados"
+        min="1"
+        required
+      />
+
+      <p>Tu pago es de: $</p>
+      <input id="total_pago" name="precio_pagado" readonly />
+      
+      <button type="submit" class="pay-button">PAGAR</button>
+     
+      {% if messages %}
+      <div id="alert-message" class="alert">
+        {% for message in messages %}
+        <div>{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </form>
+    <a
+      href="https://www.teamnet.com.mx/hubfs/Comunicaci%C3%B3n%202019/Comunicaci%C3%B3n%20Socios/2020/P%C3%A1gina%20web/team%20web/Pol%C3%ADtica%20Pago%20con%20Tarjeta%20-%20teammate.pdf"
+      target="_blank"
+      class="policy-link"
+      >Políticas de Pago</a
+    >
+  </div>
+</div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var reservationModal = document.getElementById("reservationModal");
+      var paymentModal = document.getElementById("paymentModal");
+      var openBtn = document.getElementById("openModalBtn");
+      var closeButtons = document.getElementsByClassName("close");
+      var continueToPaymentBtn = document.getElementById("continueToPayment");
+
+      function openModal(modal) {
+        modal.style.display = "block";
+      }
+
+      function closeModal(modal) {
+        modal.style.display = "none";
+      }
+
+      openBtn.addEventListener("click", function () {
+        openModal(reservationModal);
+      });
+
+      Array.from(closeButtons).forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var modalId = btn.getAttribute("data-modal");
+          closeModal(document.getElementById(modalId));
+        });
+      });
+
+      continueToPaymentBtn.addEventListener("click", function () {
+        closeModal(reservationModal);
+        openModal(paymentModal);
+      });
+
+      document.getElementById("num_lugares").addEventListener("input", function () {
+        var costo = parseFloat("{{ tours.costo|default:0 }}");
+        var lugares = parseInt(this.value, 10);
+        var lugaresDisponibles = parseInt("{{ tours.lugares_disponibles }}", 10);
+    
+        if (isNaN(lugares) || lugares < 1) {
+          alert("La cantidad de lugares debe ser un número positivo.");
+          this.value = 1; // Reajusta al mínimo de 1 lugar
+        } else if (lugares > lugaresDisponibles) {
+          alert(
+            "No puedes reservar más lugares de los disponibles. Lugares disponibles: " +
+              lugaresDisponibles
+          );
+          this.value = lugaresDisponibles; // Ajusta el valor al máximo permitido
+        } else {
+          var total = costo * lugares;
+          document.getElementById("total_pago").value = total;
+        }
+      });
+      
+      window.addEventListener("click", function (event) {
+        if (event.target === reservationModal) {
+          closeModal(reservationModal);
+        }
+        if (event.target === paymentModal) {
+          closeModal(paymentModal);
+        }
+      });
+
+      document.getElementById("card_holder").addEventListener("input", function() {
+        this.value = this.value.replace(/[^A-Za-z\s]/g, "");  // Permitir solo letras y espacios
+      });
+
+      document.getElementById("card_number").addEventListener("input", function() {
+        this.value = this.value.replace(/\D/g, "");  // Permitir solo dígitos
+      });
+
+      document.getElementById("card_expiry").addEventListener("input", function() {
+        // Permitir solo dígitos y '/'
+        this.value = this.value.replace(/[^0-9\/]/g, "");  
+
+        // Obtener el valor actual del input
+        let input = this.value;
+
+        // Agrega la barra inclinada (/) después de que el usuario haya ingresado 2 dígitos (mes)
+        if (input.length === 2 && !input.includes('/')) {
+            input = input.slice(0, 2) + '/' + input.slice(2);
+        }
+
+        // Restringir la longitud a 5 caracteres (formato MM/AA)
+        if (input.length > 5) {
+            input = input.slice(0, 5);
+        }
+
+        // Actualiza el valor del input con el formato adecuado
+        this.value = input;
+      });
+
+      document.getElementById("card_cvc").addEventListener("input", function() {
+        this.value = this.value.replace(/\D/g, "");  // Permitir solo dígitos
+      });
+
+    });
+  </script>
+ {% endcomment %}
+
+ <div class="container_tour">
+    <div class="titulo">
+        <h1>{{ tours.nombre }}</h1>
+        <h2>{{ tours.ciudad }}, {{ tours.estado }}</h2>
+        <div class="image-gallery">
+          <img src="{{tours.imagen.url}}" /> 
+          <img src="{{tours.imagen.url}}" /> 
+          <img src="{{tours.imagen.url}}" />
+          <img src="{{tours.imagen.url}}"/> 
+          <img src="{{tours.imagen.url}}" /> 
+          <img src="{{tours.imagen.url}}" />
+          <img src="{{tours.imagen.url}}" />
+          <img src="{{tours.imagen.url}}"/> 
+          <img src="{{tours.imagen.url}}" /> 
+          <img src="{{tours.imagen.url}}" />
+          <img src="{{tours.imagen.url}}" />
+          <img src="{{tours.imagen.url}}"/> 
+        </div>
+      
+      <!-- Contenedor flex para detalles y mapa -->
+      <div class="details-map-container">
+        <div class="details">
+          <!-- Detalles del tour -->
+          <p style="font-weight: bold;">Fecha:</p> <p>{{ tours.fecha }}</p>
+          <p style="font-weight: bold;">Hora:</p> <p>{{ tours.hora }}</p>
+          <p style="font-weight: bold;">Kilómetros del recorrido:</p> <p>{{ tours.km }}</p>
+          <p style="font-weight: bold;">Punto de inicio:</p> <p>{{ tours.punto_inicio }}</p>
+          <p style="font-weight: bold;">Descripción:</p> <p>{{ tours.descripcion }}</p>
+  
+          {% if tour_vencido %}
+          <h3 class="text-dark" style="text-align: center; font-family: 'chil'; padding-top: 10px; font-size: 12px; color:red !important;">
+            TOUR VENCIDO. NO SE PUEDEN REALIZAR RESERVAS.
+          </h3>
+          {% elif request.user.is_authenticated %}
+          <button class="reserve-button" id="openModalBtn">HACER RESERVA</button>
+          {% else %}
+          <h3 class="text-dark" style="text-align: center; font-family: 'chil'; padding-top: 10px; font-size: 12px; color:red !important;">
+            PARA PODER HACER UNA RESERVACIÓN, POR FAVOR INICIE SESIÓN.
+          </h3>
+          <form action="{% url 'login' %}">
+            <button class="reserve-button">INICIAR SESIÓN</button>
+          </form>
+          {% endif %}
+        </div>
+        
+        <div class="map-section">
+          <iframe
+            src="{{tours.mapa}}"
+            class="map"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+  
+      <div>
+        <h3 style="font-family: 'chil'; font-size: 14px; margin: 0; padding: 0;">
+          PERSONAS QUE HAN HECHO RESERVA:
+        </h3>
+        {% if perfiles %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Ciudad</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for perfil in perfiles %}
+                        <tr>
+                            <td>{{ perfil.nombre }} {{ perfil.apellidos }}</td>
+                            <td>{{ perfil.ciudad }}</td>
+                            <td>{{ perfil.estado }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay reservas para este tour todavía.</p>
+        {% endif %}
+      </div>
+    </div>
+  
+    <!-- Modal de Reserva (Información del Tour) -->
+    <div id="reservationModal" class="modal">
+      <div class="modal-content">
+        <span class="close" data-modal="reservationModal">&times;</span>
+        <h1>{{ tours.nombre }}</h1>
+        <h2>{{ tours.ciudad }}, {{ tours.estado }}</h2>
+        <img src="{{tours.imagen.url}}" style="height: 150px; width: 100%" />
+        <div class="details">
+          <h2>Fecha:</h2><h1> {{ tours.fecha }}</h1>
+          <h2>Hora:</h2><h1> {{ tours.hora }}</h1>
+          <h2>Kilómetros del recorrido:</h2><h1> {{ tours.km }}</h1>
+          <h2>Punto de inicio:</h2><h1>{{ tours.punto_inicio }}</h1>
+          <h2>Punto final:</h2><h1> {{ tours.punto_final }}</h1>
+          <h2>Costo por persona:</h2><h1>{{ tours.costo }}</h1>
+          <h2>Lugares disponibles:</h2><h1>{{ tours.lugares_disponibles }}</h1>
+        </div>
+        {% if request.user.is_authenticated and not tour_vencido %}
+        <button type="button" id="continueToPayment" class="pay-button">
+          CONTINUAR AL PAGO
+        </button>
+        {% endif %}
+      </div>
+    </div>
+  
+    <!-- Modal de Pago (Datos de la Tarjeta) -->
+    <div id="paymentModal" class="modal">
+      <div class="modal-content">
+        <span class="close" data-modal="paymentModal">&times;</span>
+        <h1>Detalles de Pago</h1>
+        <form method="POST" action="{% url 'detalle_tour' tours.id %}">
+          {% csrf_token %}
+  
+          <label for="card_holder">Nombre del Titular:</label>
+          <input
+            type="text"
+            id="card_holder"
+            name="card_holder"
+            required
+            maxlength="50"
+            pattern="[A-Za-z\s]+"
+            title="El nombre del titular solo puede contener letras y espacios."
+            placeholder="Nombre del titular"
+          />
+  
+          <label for="card_number">Número de tarjeta:</label>
+          <input
+            type="text"
+            id="card_number"
+            name="card_number"
+            required
+            maxlength="16"
+            pattern="\d{16}"
+            title="El número de tarjeta debe contener exactamente 16 dígitos."
+            placeholder="Número de tarjeta"
+          />
+  
+          <label for="card_expiry">Fecha de expiración:</label>
+          <input
+            type="text"
+            id="card_expiry"
+            name="card_expiry"
+            required
+            maxlength="7"
+            pattern="\d{2}/\d{2}"
+            title="La fecha de expiración debe estar en formato MM/AA."
+            placeholder="MM/AA"
+          />
+  
+          <label for="card_cvc">CVC:</label>
+          <input
+            type="text"
+            id="card_cvc"
+            name="card_cvc"
+            required
+            maxlength="3"
+            pattern="\d{3}"
+            title="El CVC debe contener exactamente 3 dígitos."
+            placeholder="CVC"
+          />
+          <label for="num_lugares">Lugares a reservar:</label>
+          <input
+            type="number"
+            id="num_lugares"
+            name="lugares_reservados"
+            min="1"
+            required
+          />
+  
+          <p>Tu pago es de: $</p>
+          <input id="total_pago" name="precio_pagado" readonly />
+          
+          <button type="submit" class="pay-button">PAGAR</button>
+         
+          
+        </form>
+        <a
+          href="https://www.teamnet.com.mx/hubfs/Comunicaci%C3%B3n%202019/Comunicaci%C3%B3n%20Socios/2020/P%C3%A1gina%20web/team%20web/Pol%C3%ADtica%20Pago%20con%20Tarjeta%20-%20teammate.pdf"
+          target="_blank"
+          class="policy-link"
+          >Políticas de Pago</a
+        >
+      </div>
+    </div>
+  
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var reservationModal = document.getElementById("reservationModal");
+        var paymentModal = document.getElementById("paymentModal");
+        var openBtn = document.getElementById("openModalBtn");
+        var closeButtons = document.getElementsByClassName("close");
+        var continueToPaymentBtn = document.getElementById("continueToPayment");
+  
+        function openModal(modal) {
+          modal.style.display = "block";
+        }
+  
+        function closeModal(modal) {
+          modal.style.display = "none";
+        }
+  
+        if (document.getElementById("tour_vencido")) {
+          openBtn.style.display = "none";  // Oculta el botón de reserva si el tour está vencido
+        }
+  
+        openBtn.addEventListener("click", function () {
+          if (!document.getElementById("tour_vencido")) {
+            openModal(reservationModal);
+          }
+        });
+  
+        Array.from(closeButtons).forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var modalId = btn.getAttribute("data-modal");
+            closeModal(document.getElementById(modalId));
+          });
+        });
+  
+        continueToPaymentBtn.addEventListener("click", function () {
+          closeModal(reservationModal);
+          openModal(paymentModal);
+        });
+  
+        document.getElementById("num_lugares").addEventListener("input", function () {
+          var costo = parseFloat("{{ tours.costo|default:0 }}");
+          var lugares = parseInt(this.value, 10);
+          var lugaresDisponibles = parseInt("{{ tours.lugares_disponibles }}", 10);
+      
+          if (isNaN(lugares) || lugares < 1) {
+            alert("La cantidad de lugares debe ser un número positivo.");
+            this.value = 1; // Reajusta al mínimo de 1 lugar
+          } else if (lugares > lugaresDisponibles) {
+            alert(
+              "No puedes reservar más lugares de los disponibles. Lugares disponibles: " +
+                lugaresDisponibles
+            );
+            this.value = lugaresDisponibles; // Ajusta el valor al máximo permitido
+          } else {
+            var total = costo * lugares;
+            document.getElementById("total_pago").value = total;
+          }
+        });
+        
+        window.addEventListener("click", function (event) {
+          if (event.target === reservationModal) {
+            closeModal(reservationModal);
+          }
+          if (event.target === paymentModal) {
+            closeModal(paymentModal);
+          }
+        });
+  
+        document.getElementById("card_holder").addEventListener("input", function() {
+          this.value = this.value.replace(/[^A-Za-z\s]/g, "");  // Permitir solo letras y espacios
+        });
+  
+        document.getElementById("card_number").addEventListener("input", function() {
+          this.value = this.value.replace(/\D/g, "");  // Permitir solo dígitos
+        });
+  
+        document.getElementById("card_expiry").addEventListener("input", function() {
+          // Permitir solo dígitos y '/'
+          this.value = this.value.replace(/[^0-9\/]/g, "");  
+  
+          // Obtener el valor actual del input
+          let input = this.value;
+  
+          // Agrega la barra inclinada (/) después de que el usuario haya ingresado 2 dígitos (mes)
+          if (input.length === 2 && !input.includes('/')) {
+              input = input.slice(0, 2) + '/' + input.slice(2);
+          }
+  
+          // Restringir la longitud a 5 caracteres (formato MM/AA)
+          if (input.length > 5) {
+              input = input.slice(0, 5);
+          }
+  
+          // Actualiza el valor del input con el formato adecuado
+          this.value = input;
+        });
+  
+        document.getElementById("card_cvc").addEventListener("input", function() {
+          this.value = this.value.replace(/\D/g, "");  // Permitir solo dígitos
+        });
+  
+      });
+    </script>
+{% endblock %}

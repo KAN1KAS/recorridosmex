@@ -1,0 +1,64 @@
+{% extends "inicio/predeterminado.html" %}
+
+{% block titulo %} NOSOTROS {% endblock %}
+
+{% load static %}
+
+{% block contenido %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'inicio/css/nosotros.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <!-- Contenido de la página -->
+    <div class="nosotros-container">
+        <header>
+        <div class="titulo">
+            <h1></h1>
+        </div>
+        </header>
+        
+        <div class="nosotros-content">
+            <h2 >EXPLORA MÉXICO A TRAVÉS DE SENDERISMO CONSCIENTE</h2>
+                <br>
+            <p>Crea una conexión profunda con la naturaleza en un espacio abierto y de consciencia. 🌱<br>
+            Conoce a gente maravillosa y conecta con las decenas de personas que cada mes se suman a nuestra comunidad.<br>
+            Aprende de comunidades increíbles que abren sus puertas en diferentes localidades del país. <br>
+            Recorridos por México nace con el objetivo de crear espacios para la reflexión y la contención personal en la naturaleza en experiencias de senderismo.</p>
+        </div>
+        <img src="{% static 'inicio/images/n.jpg' %}" alt="Nosotros" class="nosotros-image">
+        <img src="{% static 'inicio/images/b.jpg' %}" alt="Nosotros" class="nosotros-image">
+        
+    </div>
+    <div class="nosotros">
+        <header class="titulo2">
+            <h1>DESCONEXIÓN URBANA</h1>
+            <h2>Conexión humana</h2>
+        </header>
+        <div class="nosotros-row">
+            <div class="nosotros-column">
+                <div class="imagen-container">
+                    <img src="{% static 'inicio/images/p.png' %}" alt="Imagen 1">
+                </div>
+                <p>Convertimos a la sustentabilidad y el acercamiento social en un medio y no en el objetivo, logrando experiencias vivenciales que cambian mentalidades.</p>
+            </div>
+            <div class="nosotros-column">
+                <div class="imagen-container">
+                    <img src="{% static 'inicio/images/s.png' %}" alt="Imagen 2">
+                </div>
+                <p>Hacemos un México más caminable: Exploramos rutas en los lugares más recónditos y mágicos del país. Una vez que están democratizadas, las dejamos para que nuestro público las explore por sí mismo.</p>
+            </div>
+            <div class="nosotros-column">
+                <div class="imagen-container">
+                    <img src="{% static 'inicio/images/c.png' %}" alt="Imagen 3">
+                </div>
+                <p>Aprende y contribuye a comunidades rurales que nos abren sus puertas en diferentes localidades del país.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{%endblock%}

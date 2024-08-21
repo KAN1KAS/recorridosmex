@@ -1,0 +1,132 @@
+/*.titu{
+    margin-top: 50px;
+    align-self: center;
+}
+.tours-container {
+    display: flex;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin-left: 70px;
+    margin-bottom: 50px;
+}
+
+.tour {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 10px;
+    transition: transform 0.3s ease;
+    width: 212px;
+    height: 300px;
+}
+
+.tour img {
+    max-width: 100%;
+    width: 200px;
+    height: 200px;
+    border-radius: 150px;
+}
+
+.tour h2 {
+    margin: 15px 0 0 0;
+    font-size: 1.2rem;
+    margin-top: 30px;
+}
+
+.tour:hover {
+    transform: translateY(-5px);
+}
+
+ 
+
+ /* Estilos base */
+.titu {
+    margin-top: 50px;
+    font-size: 25px;
+    font-family: 'chil';
+    text-align: center; /* Alineación centrada para el título */
+    
+}
+
+.tours-container {
+    display: flex; 
+    /* display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));Crea columnas flexibles */ 
+    gap: 20px; /* Espacio entre los contenedores */
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 50px; /* Centra horizontalmente y agrega margen inferior */
+}
+
+.tour {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    padding: 10px;
+    transition: transform 0.3s ease;
+    width: 100%; /* Ajusta el ancho al contenedor */
+    max-width: 350px; /* Máximo ancho para evitar estiramiento en pantallas grandes */
+    height: 400px;
+    box-sizing: border-box; /* Incluye padding y border en el cálculo del ancho */
+    margin-left: 20px;
+    margin-top: 30px;
+    margin-bottom: -80px;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .tour {
+        max-width: 100%; /* Ajusta el ancho a 100% en pantallas pequeñas */
+        float: none; /* Desactiva el float en pantallas pequeñas para que los contenedores se apilen verticalmente */
+        margin: 0 auto 20px; /* Centra el contenedor y añade un margen inferior */
+    }
+}
+.tour img {
+    max-width: 100%;
+    width: 250px;
+    height: 250px;
+    border-radius: 150px;
+}
+
+.tour h2 {
+    margin: 15px 0 0 0;
+    font-size: 2.2rem;
+    margin-top: 30px;
+    font-size: 20px;
+    font-family: 'chil';
+    text-transform: uppercase;
+}
+
+
+
+/* Media queries para responsividad */
+@media only screen and (max-width: 768px) {
+    .tours-container {
+        display: contents;
+        grid-template-columns: 1fr; /* Cambia a una columna en dispositivos pequeños */
+        margin-left: auto;
+    }
+
+    .tour {
+        max-width: none; /* Elimina el ancho máximo para que ocupe el ancho completo */
+        width: 100%; /* Ajusta al ancho completo del contenedor */
+    }
+
+    .tour img {
+        width: 100%; /* Imágenes ocupan todo el ancho del contenedor */
+        height: 250px; /* Altura automática para mantener la proporción */
+        border-radius: 20px; /* Ajusta el radio de borde */
+    }
+
+    .tour h2 {
+        margin-top: 6px; /* Reducción del margen superior */
+    }
+}
+
+

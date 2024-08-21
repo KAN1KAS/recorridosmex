@@ -1,0 +1,195 @@
+{% extends "inicio/predeterminado.html" %}
+
+{% block titulo %} PRINCIPAL {% endblock %}
+
+{% load static %}
+
+{% block contenido %}
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden; /* Evita el desplazamiento horizontal */
+        }
+
+        .carousel-item img {
+            object-fit: cover;
+            width: 100%;
+            height: 71vh; /* Altura por defecto para pantallas grandes */
+            border-radius: 0.5rem; /* Añade un borde redondeado a las imágenes */
+        }
+
+        .carousel-caption {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            pointer-events: none; /* Permite hacer clic en los controles del carrusel si están sobre el texto */
+            z-index: 10; /* Asegura que la leyenda está sobre la imagen */
+            background: rgba(0, 0, 0, 0.3); /* Fondo semi-transparente */
+            box-sizing: border-box; /* Incluye padding en el tamaño total del contenedor */
+        }
+
+        .carousel-caption-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            max-width: 90%; /* Limita el ancho máximo del contenedor del texto */
+            margin: auto; /* Centra el contenedor horizontalmente */
+            padding: 0 190px; /* Añade padding lateral para pantallas grandes */
+        }
+
+        .carousel-caption-content h1 {
+            font-size: 90px; /* Tamaño del texto por defecto */
+            color: black;
+            font-family: 'd', sans-serif; /* Asegura que se usa una fuente genérica */
+            margin: 0; /* Elimina el margen predeterminado */
+            text-shadow: 
+                1px 1px 2px rgba(0, 0, 0, 0.3), /* Sombra difusa para contraste */
+                0 0 25px rgba(255, 255, 255, 0.4), /* Resplandor blanco */
+                0 0 5px rgba(255, 255, 255, 0.4); /* Resplandor adicional */
+        }
+
+        /* Ajustes para pantallas móviles */
+        @media (max-width: 767.98px) {
+            .carousel-item img {
+                height: 75vh; /* Ajusta la altura de la imagen para que ocupe la mitad del viewport en pantallas móviles */
+            }
+
+            .carousel-caption {
+                height: 75vh; /* Ajusta la altura del carrusel para que también ocupe la mitad del viewport */
+            }
+
+            .carousel-caption-content {
+                padding: 0 20px; /* Reduce el padding lateral en pantallas móviles */
+            }
+
+            .carousel-caption-content h1 {
+                font-size: 8vw; /* Ajusta el tamaño del texto en función del ancho de la ventana en pantallas móviles */
+                text-shadow: 
+                    1px 1px 1px rgba(0, 0, 0, 0.5), /* Ajusta la sombra para pantallas móviles */
+                    0 0 10px rgba(255, 255, 255, 0.3), /* Ajusta el resplandor blanco */
+                    0 0 3px rgba(255, 255, 255, 0.3); /* Ajusta el resplandor adicional */
+            }
+        }
+
+
+        @media (max-width: 414px) {
+            .carousel-item img {
+                height: 81vh; /* Ajusta la altura de la imagen para que ocupe la mitad del viewport en pantallas móviles */
+            }
+
+            .carousel-caption {
+                height: 81vh; /* Ajusta la altura del carrusel para que también ocupe la mitad del viewport */
+            }
+
+            .carousel-caption-content {
+                padding: 0 20px; /* Reduce el padding lateral en pantallas móviles */
+            }
+
+            .carousel-caption-content h1 {
+                font-size: 8vw; /* Ajusta el tamaño del texto en función del ancho de la ventana en pantallas móviles */
+                text-shadow: 
+                    1px 1px 1px rgba(0, 0, 0, 0.5), /* Ajusta la sombra para pantallas móviles */
+                    0 0 10px rgba(255, 255, 255, 0.3), /* Ajusta el resplandor blanco */
+                    0 0 3px rgba(255, 255, 255, 0.3); /* Ajusta el resplandor adicional */
+            }
+        }
+
+        @media (max-width: 430px) {
+            .carousel-item img {
+                height: 82vh; /* Ajusta la altura de la imagen para que ocupe la mitad del viewport en pantallas móviles */
+            }
+
+            .carousel-caption {
+                height: 82vh; /* Ajusta la altura del carrusel para que también ocupe la mitad del viewport */
+            }
+
+            .carousel-caption-content {
+                padding: 0 20px; /* Reduce el padding lateral en pantallas móviles */
+            }
+
+            .carousel-caption-content h1 {
+                font-size: 8vw; /* Ajusta el tamaño del texto en función del ancho de la ventana en pantallas móviles */
+                text-shadow: 
+                    1px 1px 1px rgba(0, 0, 0, 0.5), /* Ajusta la sombra para pantallas móviles */
+                    0 0 10px rgba(255, 255, 255, 0.3), /* Ajusta el resplandor blanco */
+                    0 0 3px rgba(255, 255, 255, 0.3); /* Ajusta el resplandor adicional */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .carousel-item img {
+                height: 83vh; /* Ajusta la altura de la imagen para que ocupe la mitad del viewport en pantallas móviles */
+            }
+
+            .carousel-caption {
+                height: 83vh; /* Ajusta la altura del carrusel para que también ocupe la mitad del viewport */
+            }
+
+            .carousel-caption-content {
+                padding: 0 20px; /* Reduce el padding lateral en pantallas móviles */
+            }
+
+            .carousel-caption-content h1 {
+                font-size: 12vw; /* Ajusta el tamaño del texto en función del ancho de la ventana en pantallas móviles */
+                text-shadow: 
+                    1px 1px 1px rgba(0, 0, 0, 0.5), /* Ajusta la sombra para pantallas móviles */
+                    0 0 10px rgba(255, 255, 255, 0.3), /* Ajusta el resplandor blanco */
+                    0 0 3px rgba(255, 255, 255, 0.3); /* Ajusta el resplandor adicional */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .carousel-caption-content h1 {
+                font-size: 12vw; /* Ajusta el tamaño del texto en pantallas muy pequeñas */
+            }
+        }
+    </style>
+
+    <!-- Carrusel Bootstrap 5 -->
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'inicio/images/5.jpg' %}" class="d-block w-100" alt="Recorridos por la playa">
+                <div class="carousel-caption">
+                    <div class="carousel-caption-content">
+                        <h1>Recorridos por Mexico</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'inicio/images/4.jpg' %}" class="d-block w-100" alt="Recorridos por la montaña">
+                <div class="carousel-caption">
+                    <div class="carousel-caption-content">
+                        <h1>Recorridos por Mexico</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'inicio/images/3.jpg' %}" class="d-block w-100" alt="Recorridos culturales en la ciudad">
+                <div class="carousel-caption">
+                    <div class="carousel-caption-content">
+                        <h1>Recorridos por Mexico</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+{% endblock %}

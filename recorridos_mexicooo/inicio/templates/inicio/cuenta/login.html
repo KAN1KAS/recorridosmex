@@ -1,0 +1,185 @@
+{% extends "inicio/predeterminado.html" %}
+
+{% block titulo %} INICIAR SESIÓN {% endblock %}
+
+{% block contenido %}
+{% load static %}
+
+<style>
+    .login-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        box-sizing: border-box;
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+        background-color: #9DBDB;
+    }
+    .login-container h3 {
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 20px;
+        color: #333;
+        font-family: 'Century Gothic', sans-serif;
+    }
+    .login-container form div {
+        margin-bottom: 10px;
+    }
+    .login-container label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+        font-family: 'Century Gothic', sans-serif;
+        font-size: 13px;
+    }
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 10px;
+        font-family: 'Century Gothic', sans-serif;
+    }
+    .login-container input[type="submit"] {
+        width: 100%;
+        padding: 8px;
+        border: none;
+        border-radius: 4px;
+        background-color: #55947A;
+        color: black;
+        font-size: 10px;
+        cursor: pointer;
+        font-family: 'Century Gothic', sans-serif;
+        font-weight: bold;
+    }
+    .login-container input[type="submit"]:hover {
+        background-color: #65B293;
+    }
+    .login-container p {
+        margin: 0;
+        color: #333;
+        font-size: 10px;
+        font-weight: bold;
+        font-family: 'Century Gothic', sans-serif;
+    }
+    .login-container a {
+        color: #55947A;
+        text-decoration: none;
+        font-size: 10px;
+    }
+    .login-container a:hover {
+        text-decoration: underline;
+    }
+    .error-message {
+        color: red !important; /* Forza el color rojo para los mensajes de error */
+        text-align: center;
+        margin: 10px 0;
+        font-family: 'Century Gothic', sans-serif;
+        font-size: 10px;
+    }
+    
+    .icon-container {
+        text-align: center;
+    }
+    .icon-container img {
+        width: 70px;
+        height: 70px;
+    }
+
+    /* Medios de consulta para pantallas más pequeñas */
+    @media (max-width: 768px) {
+        .login-container {
+            max-width: 90%;
+            margin: 20px auto;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .login-container {
+            max-width: 95%;
+            margin: 10px auto;
+        }
+    }
+</style>
+
+<div class="login-container">
+    <div class="icon-container">
+        <img src="{% static 'inicio/images/icono.jpg' %}" alt="Ícono de Usuario">
+    </div>
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div>
+            <label for="user">Nombre de Usuario*</label>
+            <input id="user" type="text" name="user" placeholder="Nombre de usuario" required>
+        </div>
+        <div>
+            <label for="password">Contraseña*</label>
+            <input id="password" type="password" name="contraseña" placeholder="Contraseña" required>
+        </div>
+        {% if error_message %}
+            <p id="error-message" class="error-message">{{ error_message }}</p>
+        {% endif %} 
+
+        <div class="form-group button-container">
+            <input class="btn" type="submit" value="INICIAR SESIÓN">
+        </div>
+    </form>
+    <div>
+        <p>¿AÚN NO TIENES CUENTA? <a href="{% url 'registro' %}">Regístrate aquí</a></p>
+    </div>
+</div>
+
+<script>
+    // Verificar si existe un mensaje de error
+    const errorMessage = document.getElementById('error-message');
+    
+    if (errorMessage) {
+        // Esperar 20 segundos y luego ocultar el mensaje de error
+        setTimeout(() => {
+            errorMessage.style.display = 'none';
+        }, 2000); 
+    }
+</script>
+
+{% endblock %}
+
+{% comment %} {% extends "inicio/predeterminado.html" %}
+
+{% block titulo %} INICIAR SESIÓN {% endblock %}
+{% block contenido %}
+
+                    <h3 class"text">Iniciar Sesión</h3>          
+                    <form method="POST" action="{% url 'login'%}" >
+                        {% csrf_token %}
+                        {{ form }}
+                        
+                        <div>
+                            <label for="user">Nombre de Usuario*</label><input id="user" type="text" name="user" placeholder="Nombre de usuario">
+                        </div>
+                        <div>
+                            <label for="password">Contraseña*</label><input id="password" type="password" name="contraseña" placeholder="Contraseña">
+                        </div>
+                        {% if error_message %}
+                        <p style="color: red;">{{ error_message }}</p>
+                        {% endif %} 
+
+                        <div>
+                            <input class="btn btn-azul" type="submit" value="INICIAR SESIÓN">
+                        </div> 
+                    </form>
+                    <div>
+                        <a href="{% url 'registro' %}"><p>¿AÚN NO TIENES CUENTA?</p></a>
+                    </div>
+                
+        
+{%endblock%} {% endcomment %}
